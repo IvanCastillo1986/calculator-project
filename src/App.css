@@ -1,38 +1,84 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-weight: bold;
 }
 
-.App-link {
-  color: #61dafb;
+.Calculator {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  width: 400px;
+  height: 707px;
+  border: 5px solid black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Results-container {
+  background-color: rgb(184, 184, 184);
+  grid-row: 1 / 3;
+  grid-column: 1 / 5;
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.Top-container {
+  background-color: rgb(199, 130, 130);
+  grid-row: 3 / 4;
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.Top-container div:first-of-type {
+  grid-column: 1 / 3;
+}
+.Top-container>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.Numbers-container {
+  background-color: greenyellow;
+  grid-row: 4 / 8;
+  grid-column: 1 / 4;
+  display: flex;
+  flex-wrap: wrap;
+}
+.Number {
+  background-color: greenyellow;
+  border: 1px solid black;
+  border-right: 0;
+  border-bottom: 0;
+  width: 100px;
+}
+.Numbers-container button:nth-of-type(9) {
+  border-bottom: 1px solid black;
+}
+.Numbers-container button:last-of-type {
+  border-right: 1px solid black;
+}
+
+.Operations-container {
+  background-color: rgb(159, 159, 240);
+  grid-row: 3 / 7;
+  grid-column: 4 / 5;
+  display: flex;
+  flex-wrap: wrap;
+}
+.Operations {
+  background-color: rgb(255, 255, 2);
+  border: 1px solid black;
+  border-bottom: 0;
+  width: 100px;
+}
+
+.Equals-container {
+  background-color: rgb(211, 66, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
 }
