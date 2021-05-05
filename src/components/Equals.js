@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Equals() {
+function Equals(props) {
     return (
-        <div className="Equals">
+        <div onClick={props.handleCalculate} className="Equals">
             <div>=</div>
         </div>
     )

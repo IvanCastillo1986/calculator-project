@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css';
-import Input from './components/Input'
+import DisplayValue from './components/DisplayValue'
 import Result from './components/Result'
 import PosNeg from './components/PosNeg'
 import Number from './components/Number'
@@ -16,40 +16,62 @@ class App extends React.Component {
     super()
 
     this.state = {
-      input: '',
+      displayValue: '0',
+      previousValue: '',
+      operation: '', // this should recieve the value from <Operations />
       result: 0,
-      method: '', // this should recieve the value from <Operations />
-      previousVal: '',
     }
-
-    // this.value  // When I click a number button, that value is transferred into the input
-    // When I click on an operator, that operator will perform an action on these values
-
-
   }
 
   handleClick = (e) => {
-    // This will do a few things:
-      // read the value of the number
-      // input the value of that number into this.state.input
     const {value} = e.target
+    let displayValue = this.state.displayValue
     
-
     this.setState({
-      input: this.state.input.concat(value)
+      displayValue: displayValue.concat(value)
     })
-    console.log(value)
+    
   }
 
   handleMethodClick = (e) => {
-    // This will:
-      // Set the operation method in this.state.method with setState()
+    const {displayValue} = this.state
     this.setState({
-      method: e.target.value
+      previousValue: displayValue,
+      operation: e.target.value,
+      displayValue: ''
     })
+    console.log('Im being clicked')
   }
 
   handleCalculate = (e) => {
+    const {displayValue, previousValue, operation} = this.state
+    const displayNum = parseInt(displayValue)
+    const previousNum = parseInt(previousValue)
+
+    if (operation === '+') {
+      this.setState({
+        result: previousNum + displayNum,
+        displayValue: '0'
+      })
+    }
+    else if (operation === '-') {
+      this.setState({
+        result: previousNum - displayNum,
+        displayValue: '0'
+      })
+    }
+    else if (operation === 'x') {
+      this.setState({
+        result: previousNum * displayNum,
+        displayValue: '0'
+      })
+    }
+    else if (operation === '÷') {
+      this.setState({
+        result: previousNum / displayNum,
+        displayValue: '0'
+      })
+    }
     // This goes on the equal sign. It will:
       // read the numbers within the input
       // apply the operation method to those numbers
@@ -58,13 +80,13 @@ class App extends React.Component {
   }
 
   render() {
-    const {input, result, method} = this.state
+    const {displayValue, previousValue, operation, result} = this.state
 
     return (
       <div className='Calculator'>
 
         <section className='Results-container'>
-          <Input input={input} />
+          <DisplayValue displayValue={displayValue} />
           <Result result={result} />
         </section>
         <section className='Top-container'>
@@ -85,13 +107,13 @@ class App extends React.Component {
           <Number value='.' handleClick={this.handleClick} />
         </section>
         <section className='Operations-container'>
-          <Operations value='+' handleClick={this.handleClick} />
-          <Operations value='-' handleClick={this.handleClick} />
-          <Operations value='x' handleClick={this.handleClick} />
-          <Operations value='÷' handleClick={this.handleClick} />
+          <Operations value='+' handleMethodClick={this.handleMethodClick} />
+          <Operations value='-' handleMethodClick={this.handleMethodClick} />
+          <Operations value='x' handleMethodClick={this.handleMethodClick} />
+          <Operations value='÷' handleMethodClick={this.handleMethodClick} />
         </section>
         <section className='Equals-container'>
-          <Equals />
+          <Equals handleCalculate={this.handleCalculate} />
         </section>
 
       </div>

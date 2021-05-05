@@ -4,7 +4,7 @@ function Operations(props) {
     const value = props.value
 
     return (
-        <button className='Operations' value={value} onClick={props.handleClick}>
+        <button className='Operations' value={value} onClick={props.handleMethodClick}>
             {value}
         </button>
     )
