@@ -1,10 +1,8 @@
 import React from 'react'
 
-function PosNeg() {
+function PosNeg(props) {
     return (
-        <div>
-            <div>+/-</div>
-        </div>
+        <button onClick={props.handleNegative}>+/-</button>
     )
 }
 

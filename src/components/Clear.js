@@ -1,10 +1,8 @@
 import React from 'react'
 
-function Clear() {
+function Clear(props) {
     return (
-        <div className="Clear">
-            <div>AC</div>
-        </div>
+        <button onClick={props.handleClear} className='Clear'>AC</button>
     )
 }
 

@@ -18,8 +18,8 @@ class App extends React.Component {
     this.state = {
       displayValue: '0',
       previousValue: '',
-      operation: '', // this should recieve the value from <Operations />
-      result: 0,
+      operation: '',
+      result: '',
     }
   }
 
@@ -28,7 +28,7 @@ class App extends React.Component {
     let displayValue = this.state.displayValue
     
     this.setState({
-      displayValue: displayValue.concat(value)
+      displayValue: displayValue + value
     })
     
   }
@@ -40,17 +40,34 @@ class App extends React.Component {
       operation: e.target.value,
       displayValue: ''
     })
-    console.log('Im being clicked')
+    console.log(typeof(2))
+  }
+  handleClear = () => {
+    this.setState({
+      displayValue: 0,
+      previousValue: 0,
+      result: 0,
+    })
+  }
+  handleNegative = () => {
+    const {displayValue} = this.state
+    this.setState({
+      displayValue: displayValue - (displayValue * 2)
+    })
   }
 
-  handleCalculate = (e) => {
+  handleCalculate = () => {
     const {displayValue, previousValue, operation} = this.state
     const displayNum = parseInt(displayValue)
     const previousNum = parseInt(previousValue)
 
     if (operation === '+') {
+      let num = previousNum + displayNum
+      console.log('num: ' + num)
+      let newNum = this.commafy(num)
+      console.log(newNum)
       this.setState({
-        result: previousNum + displayNum,
+        result: newNum,
         displayValue: '0'
       })
     }
@@ -68,15 +85,18 @@ class App extends React.Component {
     }
     else if (operation === '÷') {
       this.setState({
-        result: previousNum / displayNum,
+        result: parseInt(previousNum / displayNum),
         displayValue: '0'
       })
     }
-    // This goes on the equal sign. It will:
-      // read the numbers within the input
-      // apply the operation method to those numbers
-        // the methods will be 'add', 'subtract', 'multiply', 'divide'
-      // display the calculated number in this.state.result with setState()
+  }
+  commafy = (num) => {
+    const str = String(num)
+    const splitNum = str.split('')
+    for (let i = splitNum.length - 4; i > -1; i = i - 3) {
+        splitNum[i] = splitNum[i] + ','
+    }
+    return splitNum.join('')
   }
 
   render() {
@@ -90,8 +110,8 @@ class App extends React.Component {
           <Result result={result} />
         </section>
         <section className='Top-container'>
-          <Clear />
-          <PosNeg />
+          <Clear handleClear={this.handleClear} />
+          <PosNeg handleNegative={this.handleNegative} />
         </section>
         <section className='Numbers-container'>
           <Number value={1} handleClick={this.handleClick} />
