@@ -14,9 +14,9 @@ import React from 'react'
 
 export default function DisplayValue(props) {
 
-    return (
-        <div>
-            <h2>{props.displayValue}</h2>
-        </div>
-    )
+        return (
+            <div className='DisplayValue'>
+            <h2>Input: {props.displayValue}</h2>
+            </div>
+        )
 }

@@ -8,7 +8,6 @@ import Operations from './components/Operations'
 import Clear from './components/Clear'
 import Equals from './components/Equals'
 
-// Stopped watching Jimmy's recording at 35:00
 
 
 class App extends React.Component {
@@ -19,18 +18,32 @@ class App extends React.Component {
       displayValue: '0',
       previousValue: '',
       operation: '',
-      result: '',
+      result: '0',
     }
   }
 
+
+  commafy = (num) => {
+    const str = String(num)
+    const splitNum = str.split('')
+    for (let i = splitNum.length - 4; i > -1; i = i - 3) {
+      splitNum[i] = splitNum[i] + ','
+    }
+    return splitNum.join('')
+  }
   handleClick = (e) => {
     const {value} = e.target
     let displayValue = this.state.displayValue
-    
-    this.setState({
-      displayValue: displayValue + value
-    })
-    
+  
+    if (this.state.displayValue === '0') {
+      this.setState({
+        displayValue: value
+      })
+    } else {
+      this.setState({
+        displayValue: displayValue + value
+      })
+    }
   }
 
   handleMethodClick = (e) => {
@@ -40,13 +53,12 @@ class App extends React.Component {
       operation: e.target.value,
       displayValue: ''
     })
-    console.log(typeof(2))
   }
   handleClear = () => {
     this.setState({
-      displayValue: 0,
-      previousValue: 0,
-      result: 0,
+      displayValue: '0',
+      previousValue: '',
+      result: '0',
     })
   }
   handleNegative = () => {
@@ -58,73 +70,73 @@ class App extends React.Component {
 
   handleCalculate = () => {
     const {displayValue, previousValue, operation} = this.state
-    const displayNum = parseInt(displayValue)
-    const previousNum = parseInt(previousValue)
+    const displayNum = parseFloat(displayValue)
+    const previousNum = parseFloat(previousValue)
 
     if (operation === '+') {
-      let num = previousNum + displayNum
-      console.log('num: ' + num)
-      let newNum = this.commafy(num)
-      console.log(newNum)
+      const result = previousNum + displayNum
+
       this.setState({
-        result: newNum,
+        result: result,
         displayValue: '0'
       })
     }
     else if (operation === '-') {
+      const result = previousNum - displayNum
+
       this.setState({
-        result: previousNum - displayNum,
+        result: result,
         displayValue: '0'
       })
     }
     else if (operation === 'x') {
+      const result = previousNum * displayNum
+
       this.setState({
-        result: previousNum * displayNum,
+        result: result,
         displayValue: '0'
       })
     }
     else if (operation === '÷') {
+      const result = parseInt(previousNum / displayNum)
+
       this.setState({
-        result: parseInt(previousNum / displayNum),
+        result: result,
         displayValue: '0'
       })
     }
   }
-  commafy = (num) => {
-    const str = String(num)
-    const splitNum = str.split('')
-    for (let i = splitNum.length - 4; i > -1; i = i - 3) {
-        splitNum[i] = splitNum[i] + ','
-    }
-    return splitNum.join('')
-  }
+
 
   render() {
     const {displayValue, previousValue, operation, result} = this.state
+    const displayVal = this.commafy(displayValue)
+    const finalResult = this.commafy(result)
 
     return (
       <div className='Calculator'>
 
         <section className='Results-container'>
-          <DisplayValue displayValue={displayValue} />
-          <Result result={result} />
+          <DisplayValue displayValue={displayVal} />
+          <hr />
+          <Result result={finalResult} />
         </section>
         <section className='Top-container'>
           <Clear handleClear={this.handleClear} />
           <PosNeg handleNegative={this.handleNegative} />
         </section>
         <section className='Numbers-container'>
-          <Number value={1} handleClick={this.handleClick} />
-          <Number value={2} handleClick={this.handleClick} />
-          <Number value={3} handleClick={this.handleClick} />
-          <Number value={4} handleClick={this.handleClick} />
-          <Number value={5} handleClick={this.handleClick} />
-          <Number value={6} handleClick={this.handleClick} />
-          <Number value={7} handleClick={this.handleClick} />
-          <Number value={8} handleClick={this.handleClick} />
-          <Number value={9} handleClick={this.handleClick} />
-          <Number value={0} handleClick={this.handleClick} />
-          <Number value='.' handleClick={this.handleClick} />
+          <Number value={'1'} handleClick={this.handleClick} />
+          <Number value={'2'} handleClick={this.handleClick} />
+          <Number value={'3'} handleClick={this.handleClick} />
+          <Number value={'4'} handleClick={this.handleClick} />
+          <Number value={'5'} handleClick={this.handleClick} />
+          <Number value={'6'} handleClick={this.handleClick} />
+          <Number value={'7'} handleClick={this.handleClick} />
+          <Number value={'8'} handleClick={this.handleClick} />
+          <Number value={'9'} handleClick={this.handleClick} />
+          <Number value={'0'} handleClick={this.handleClick} />
+          <Number value={'.'} handleClick={this.handleClick} />
         </section>
         <section className='Operations-container'>
           <Operations value='+' handleMethodClick={this.handleMethodClick} />
