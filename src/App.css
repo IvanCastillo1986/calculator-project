@@ -29,7 +29,8 @@ button:hover {
   height: 707px;
   border: 35px ridge #6f0b94e1;
   border-radius: 10px;
-  box-shadow: 30px 30px 8px #FD1D53;
+  box-shadow: 50px 30px 8px #FD1D53;
+  margin-bottom: 90px;
 }
 
 .Results-container {
@@ -71,7 +72,8 @@ button:hover {
 }
 
 .Numbers-container {
-  background-color: greenyellow;
+  /* background-color: rgb(153, 255, 0); */
+  background-image: url(skullPic.png);
   grid-row: 4 / 8;
   grid-column: 1 / 4;
   display: flex;
